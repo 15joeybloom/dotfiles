@@ -7,6 +7,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'rust-lang/rust.vim'
 Plugin 'avakhov/vim-yaml'
+Plugin 'kien/rainbow_parentheses.vim'
 Bundle 'terryma/vim-multiple-cursors'
 
 " All of your Plugins must be added before the following line
@@ -48,6 +49,8 @@ set completeopt+=longest
 set t_Co=256
 
 set cmdheight=1
+
+set noswapfile
 
 execute pathogen#infect()
 
@@ -226,3 +229,32 @@ set statusline="%f%m%r%h%w [%Y] [0x%02.2B]%< %F%=%4v,%4l %3p%% of %L"
 set scrolloff=10
 
 autocmd BufWritePost *.tex Dispatch! latexmk -pdf main.tex
+
+" Rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 15
+let g:rbpt_loadcmd_toggle = 0
+
+" Paredit
+let g:paredit_electric_return = 0
