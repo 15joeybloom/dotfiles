@@ -27,17 +27,14 @@ set number
 set nowrap
 set showmode
 set tw=80
-set smartcase
 set smarttab
 set smartindent
-set autoindent
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set incsearch
-set mouse=a
 set history=1000
-set clipboard=unnamedplus,autoselect
+set clipboard=unnamed,autoselect
 
 set completeopt=menuone,menu,longest
 
@@ -47,8 +44,6 @@ set wildmenu
 set completeopt+=longest
 
 set t_Co=256
-
-set cmdheight=1
 
 set noswapfile
 
@@ -143,9 +138,6 @@ set hidden
 " set confirm
 " set autowriteall
  
-" Better command-line completion
-set wildmenu
- 
 " Show partial commands in the last line of the screen
 set showcmd
  
@@ -166,10 +158,6 @@ set hlsearch
 " change Vim's behaviour in ways which deviate from the true Vi way, but
 " which are considered to add usability. Which, if any, of these options to
 " use is very much a personal preference, but they are harmless.
- 
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
  
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
@@ -209,9 +197,6 @@ imap <MiddleMouse> <Nop>
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
 set cmdheight=2
- 
-" Display line numbers on the left
-set number
  
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
@@ -258,3 +243,7 @@ let g:rbpt_loadcmd_toggle = 0
 
 " Paredit
 let g:paredit_electric_return = 0
+
+" rusty-tags
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
