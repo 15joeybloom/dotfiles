@@ -274,14 +274,14 @@ values."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'any
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -311,7 +311,57 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-hl-line-mode -1)
-  (global-linum-mode))
+  (global-linum-mode)
+
+  ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
+  (cond
+   ;; OS X
+   ((string-equal system-type "darwin") ; Mac OS X
+    (progn
+      (setq save-to-clipboard-cmd "pbcopy")
+      (setq paste-from-clipboard-cmd "pbpaste")
+      )
+    )
+   ;; Linux
+   ((string-equal system-type "gnu/linux") ; linux
+    (progn
+      (setq save-to-clipboard-cmd "xsel -i -b")
+      (setq paste-from-clipboard-cmd "xsel -o -b")
+      )
+    )
+   )
+
+  (defun copy-to-clipboard ()
+    "Copies selection to x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (message "Yanked region to x-clipboard!")
+          (call-interactively 'clipboard-kill-ring-save)
+          )
+      (if (region-active-p)
+          (progn
+            (shell-command-on-region (region-beginning) (region-end) save-to-clipboard-cmd)
+            (message "Yanked region to clipboard!")
+            (deactivate-mark))
+        (message "No region active; can't yank to clipboard!")))
+    )
+  
+
+  (defun paste-from-clipboard ()
+    "Pastes from x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (clipboard-yank)
+          (message "graphics active")
+          )
+      (insert (shell-command-to-string paste-from-clipboard-cmd))
+      )
+    )
+  (evil-leader/set-key "o y" 'copy-to-clipboard)
+  (evil-leader/set-key "o p" 'paste-from-clipboard)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -323,16 +373,18 @@ you should place your code here."
  '(package-selected-packages
    (quote
     (smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
- '(rainbow-delimiters-max-face-count 6))
+ ;'(rainbow-delimiters-max-face-count 6)
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "red"))))
- '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "green"))))
- '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "yellow"))))
- '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "blue"))))
- '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "magenta"))))
- '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cyan"))))
- '(rainbow-delimiters-depth-8-face ((t (:inherit rainbow-delimiters-base-face :foreground "green")))))
+ ;'(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "red"))))
+ ;'(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "green"))))
+ ;'(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "yellow"))))
+ ;'(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "blue"))))
+ ;'(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "magenta"))))
+ ;'(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cyan"))))
+ ;'(rainbow-delimiters-depth-8-face ((t (:inherit rainbow-delimiters-base-face :foreground "green"))))
+ )
