@@ -32,6 +32,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      rust
+     markdown
      clojure
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -45,9 +46,9 @@ values."
      git
      ;; markdown
      ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
