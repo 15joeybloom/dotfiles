@@ -47,8 +47,9 @@ values."
      ;; markdown
      ;; org
      (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-shell 'shell
+            shell-default-width 80
+            shell-default-position 'left)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
