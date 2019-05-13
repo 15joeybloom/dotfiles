@@ -308,6 +308,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
+(defun dotspacemacs/rust-fill-column ()
+  (turn-on-fci-mode)
+  (set-fill-column 100))
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -317,6 +321,8 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-hl-line-mode -1)
   (global-linum-mode)
+
+  (add-hook 'rust-mode-hook 'dotspacemacs/rust-fill-column)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
@@ -351,7 +357,7 @@ you should place your code here."
             (deactivate-mark))
         (message "No region active; can't yank to clipboard!")))
     )
-  
+
 
   (defun paste-from-clipboard ()
     "Pastes from x-clipboard."
