@@ -308,9 +308,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/rust-fill-column ()
+(defun dotspacemacs/rust-mode-hook ()
   (turn-on-fci-mode)
-  (set-fill-column 100))
+  (set-fill-column 100)
+  (rainbow-delimiters-mode-disable))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -322,7 +323,7 @@ you should place your code here."
   (global-hl-line-mode -1)
   (global-linum-mode)
 
-  (add-hook 'rust-mode-hook 'dotspacemacs/rust-fill-column)
+  (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
