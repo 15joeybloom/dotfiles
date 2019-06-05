@@ -30,12 +30,13 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(javascript
+     ruby
      vimscript
      rust
      markdown
-     clojure
-     evil-cleverparens
+     (clojure :variables
+              clojure-enable-clj-refactor t)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -108,6 +109,10 @@ values."
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
+   ;; 'spacemacs, 'all-the-icons, 'custom, 'vim-powerline or 'vanilla or a list
+   ;; with `car' one of the previous values and properties one of the following:
+   ;; `:separator' or `:separator-scale'
+   dotspacemacs-mode-line-theme 'spacemacs
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -265,7 +270,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers 't
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -312,6 +317,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (turn-on-fci-mode)
   (set-fill-column 100))
 
+(defun dotspacemacs/clojure-enable-cleverparens ()
+  (evil-cleverparens-mode 't))
+
+(defun dotspacemacs/better-word-motion ()
+  (modify-syntax-entry ?: "w")
+  (modify-syntax-entry ?_ "w")
+  (modify-syntax-entry ?- "w"))
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -323,6 +336,9 @@ you should place your code here."
   (global-linum-mode)
 
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-fill-column)
+  (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-enable-cleverparens)
+
+  (add-hook 'clojure-mode-hook 'dotspacemacs/better-word-motion)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
@@ -374,8 +390,11 @@ you should place your code here."
   (evil-leader/set-key "o p" 'paste-from-clipboard)
   )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -384,7 +403,7 @@ you should place your code here."
  '(evil-lisp-state-enter-lisp-state-on-command nil)
  '(package-selected-packages
    (quote
-    (evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+    (web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
  '(scroll-margin 5)
  '(vc-follow-symlinks t))
 (custom-set-faces
@@ -393,3 +412,4 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+)
