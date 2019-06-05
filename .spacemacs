@@ -313,15 +313,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
+(defun dotspacemacs/fill-column (n)
+  (set-fill-column n)
+  (turn-on-fci-mode))
+
 (defun dotspacemacs/rust-mode-hook ()
-  (turn-on-fci-mode)
-  (set-fill-column 100)
+  (dotspacemacs/fill-column 100)
   (rainbow-delimiters-mode-disable))
 
-(defun dotspacemacs/clojure-enable-cleverparens ()
-  (evil-cleverparens-mode 't))
+(defun dotspacemacs/clojure-mode-hook ()
+  (dotspacemacs/fill-column 80)
+  (evil-cleverparens-mode 't)
 
-(defun dotspacemacs/better-word-motion ()
+  ;; Better word motion
   (modify-syntax-entry ?: "w")
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w"))
@@ -337,9 +341,7 @@ you should place your code here."
   (global-linum-mode)
 
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
-  (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-enable-cleverparens)
-
-  (add-hook 'clojure-mode-hook 'dotspacemacs/better-word-motion)
+  (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
