@@ -9,3 +9,4 @@ alias isabelle="/home/joey/Desktop/Isabelle2017/Isabelle2017"
 alias emacs='emacs -nw'
 alias emacsclient='emacsclient -nw'
 alias sc='source ~/.bash_profile'
+alias oneloginpass='lpass show --password onelogin.com | pbcopy'

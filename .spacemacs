@@ -327,6 +327,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/clojure-mode-hook ()
   (dotspacemacs/fill-column 80)
   (evil-cleverparens-mode 't)
+  (smartparens-strict-mode 't)
+  (aggressive-indent-mode 't)
 
   ;; Better word motion
   (modify-syntax-entry ?: "w")
@@ -334,6 +336,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (modify-syntax-entry ?- "w")
 
   ;; Custom indentations
+  (put-clojure-indent 'try+ 1)
   (put-clojure-indent 'op/p 1)
   (put-clojure-indent 'wrap-response 2)
   (put-clojure-indent 'context 2)
