@@ -320,6 +320,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (set-fill-column n)
   (turn-on-fci-mode))
 
+(defun dotspacemacs/haskell-mode-hook ()
+  (dotspacemacs/fill-column 80)
+  (rainbow-delimiters-mode-disable)
+  (smartparens-mode nil))
+
 (defun dotspacemacs/rust-mode-hook ()
   (dotspacemacs/fill-column 100)
   (rainbow-delimiters-mode-disable))
@@ -354,6 +359,7 @@ you should place your code here."
 
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
   (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
+  (add-hook 'haskell-mode-hook 'dotspacemacs/haskell-mode-hook)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
