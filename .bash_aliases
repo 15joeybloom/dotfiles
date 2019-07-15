@@ -9,4 +9,5 @@ alias isabelle="/home/joey/Desktop/Isabelle2017/Isabelle2017"
 alias emacs='emacs -nw'
 alias emacsclient='emacsclient -nw'
 alias sc='source ~/.bash_profile'
-alias oneloginpass='lpass show --password onelogin.com | pbcopy'
+alias oneloginpass='lpass show -c --password onelogin.com ; (sleep 10; echo -n '' | pbcopy) &'
+alias scrb='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ; rvm use ruby-2.3.8'
