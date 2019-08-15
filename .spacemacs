@@ -551,7 +551,8 @@ dump."
   (put-clojure-indent 'context 2)
   (put-clojure-indent 'GET 2)
   (put-clojure-indent 'POST 2)
-  (put-clojure-indent 'loop* 1))
+  (put-clojure-indent 'loop* 1)
+  (put-clojure-indent 'pending 1))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
