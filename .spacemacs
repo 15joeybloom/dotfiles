@@ -69,7 +69,9 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      ;; markdown
-     multiple-cursors
+     (multiple-cursors :variables
+                       multiple-cursors-backend 'mc
+                       mc/cmds-to-run-once '(upcase-region))
      ;; org
      (shell :variables
             shell-default-shell 'shell
