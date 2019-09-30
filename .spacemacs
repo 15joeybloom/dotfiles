@@ -568,13 +568,6 @@ dump."
   (put-clojure-indent 'loop* 1)
   (put-clojure-indent 'pending 1))
 
-(defun split-line-at-point ()
-  (interactive)
-  (evil-insert 1)
-  (newline-and-indent)
-  (evil-normal-state)
-  (evil-forward-char))
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -589,7 +582,7 @@ before packages are loaded."
   (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
   (add-hook 'haskell-mode-hook 'dotspacemacs/haskell-mode-hook)
 
-  (define-key evil-normal-state-map "gs" 'split-line-at-point)
+  (define-key evil-normal-state-map "gs" 'newline-and-indent)
 
   ;; Yank to system clipboard https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
   (cond
