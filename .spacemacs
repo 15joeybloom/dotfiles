@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(terraform
+   '(java
+     terraform
      csv
      scala
      html
@@ -536,6 +537,13 @@ dump."
   (dotspacemacs/fill-column 100)
   (rainbow-delimiters-mode-disable))
 
+(defun dotspacemacs/java-mode-hook ()
+  (dotspacemacs/fill-column 80)
+  (rainbow-delimiters-mode-disable)
+  (set-variable 'c-basic-offset 2)
+  (set-variable 'indent-tabs-mode 't)
+  (set-variable 'tab-width 2))
+
 (defun dotspacemacs/clojure-mode-hook ()
   (dotspacemacs/fill-column 80)
   (evil-cleverparens-mode 't)
@@ -572,6 +580,7 @@ before packages are loaded."
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
   (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
   (add-hook 'haskell-mode-hook 'dotspacemacs/haskell-mode-hook)
+  (add-hook 'java-mode-hook 'dotspacemacs/java-mode-hook)
 
   (define-key evil-normal-state-map "gs" 'newline-and-indent)
 
