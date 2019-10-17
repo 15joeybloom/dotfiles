@@ -53,7 +53,6 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ivy
      auto-completion
      ;; better-defaults
      emacs-lisp
@@ -565,6 +564,8 @@ dump."
   (put-clojure-indent 'GET 2)
   (put-clojure-indent 'POST 2)
   (put-clojure-indent 'loop* 1)
+  (put-clojure-indent 'addtest 1)
+  (put-clojure-indent 'wait-for 1)
   (put-clojure-indent 'pending 1))
 
 (defun dotspacemacs/user-config ()
