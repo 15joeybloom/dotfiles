@@ -543,23 +543,22 @@ dump."
 
 (defun spaces ()
   (interactive)
-  (setq c-basic-offset 2
-				indent-tabs-mode nil
-				tab-width 2)
+  (setq indent-tabs-mode nil)
 	(untabify 1 (buffer-size)))
 
 (defun tabs ()
   (interactive)
-  (setq c-basic-offset 2
-				indent-tabs-mode 't
-				tab-width 2)
+  (setq indent-tabs-mode 't)
 	(tabify 1 (buffer-size)))
 
-(defun dotspacemacs/clojure-mode-hook ()
+(defun dotspacemacs/lisp-config ()
   (dotspacemacs/fill-column 80)
   (evil-cleverparens-mode 't)
   (smartparens-strict-mode 't)
-  (aggressive-indent-mode 't)
+  (aggressive-indent-mode 't))
+
+(defun dotspacemacs/clojure-mode-hook ()
+  (dotspacemacs/lisp-config)
 
   ;; Better word motion
   (modify-syntax-entry ?: "w")
@@ -590,8 +589,13 @@ before packages are loaded."
   (global-linum-mode)
   (spacemacs/toggle-zero-based-column-indexing-off)
 
+  (setq-default c-basic-offset 2
+                python-indent-offset 2
+                tab-width 2)
+
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
   (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
+  (add-hook 'emacs-lisp-mode-hook 'dotspacemacs/lisp-config)
   (add-hook 'haskell-mode-hook 'dotspacemacs/haskell-mode-hook)
   (add-hook 'java-mode-hook 'dotspacemacs/java-mode-hook)
   (add-hook 'c++-mode-hook 'dotspacemacs/java-mode-hook)
@@ -667,7 +671,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-lisp-state-enter-lisp-state-on-command nil)
  '(package-selected-packages
    (quote
-    (ivy-rtags google-c-style flycheck-rtags disaster cquery cpp-auto-include company-rtags rtags company-c-headers clang-format ccls lsp-python-ms python feature-mode flycheck-rust flycheck-pos-tip flycheck-haskell dap-mode bui tree-mode company-terraform terraform-mode hcl-mode csv-mode noflet mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime sbt-mode scala-mode company-emacs-eclim eclim web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data yasnippet-snippets ivy-yasnippet intero fuzzy dante lcr company-tern company-statistics company-ghci company-ghc company-cabal clojure-snippets auto-yasnippet attrap ac-ispell auto-complete yaml-mode lsp-haskell lsp-mode dash-functional hlint-refactor hindent haskell-snippets ghc haskell-mode cmm-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope helm xcscope helm-core ggtags cython-mode counsel-gtags company-anaconda company blacken anaconda-mode pythonic web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+    (helm-rtags google-c-style flycheck-rtags disaster cquery cpp-auto-include company-rtags rtags company-c-headers clang-format ccls lsp-python-ms python feature-mode flycheck-rust flycheck-pos-tip flycheck-haskell dap-mode bui tree-mode company-terraform terraform-mode hcl-mode csv-mode noflet mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime sbt-mode scala-mode company-emacs-eclim eclim web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data yasnippet-snippets ivy-yasnippet intero fuzzy dante lcr company-tern company-statistics company-ghci company-ghc company-cabal clojure-snippets auto-yasnippet attrap ac-ispell auto-complete yaml-mode lsp-haskell lsp-mode dash-functional hlint-refactor hindent haskell-snippets ghc haskell-mode cmm-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope helm xcscope helm-core ggtags cython-mode counsel-gtags company-anaconda company blacken anaconda-mode pythonic web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
  '(safe-local-variable-values
    (quote
     ((cider-default-cljs-repl quote figwheel)
