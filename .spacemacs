@@ -587,7 +587,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (global-hl-line-mode -1)
-  (global-linum-mode)
+  (setq-default display-line-numbers 't)
   (spacemacs/toggle-zero-based-column-indexing-off)
 
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
