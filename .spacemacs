@@ -604,6 +604,9 @@ before packages are loaded."
   ;; gs in normal mode to split lines
   (define-key evil-normal-state-map "gs" 'newline-and-indent)
 
+  ;; Remove M-[ binding since it's triggered by the mouse.
+  (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-[") nil)
+
   ;; SPC o a and SPC o x like C-a and C-x in vim
   (evil-leader/set-key "o a" 'evil-numbers/inc-at-pt)
   (evil-leader/set-key "o x" 'evil-numbers/dec-at-pt)
