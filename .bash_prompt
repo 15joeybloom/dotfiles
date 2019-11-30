@@ -1,0 +1,108 @@
+# https://stackoverflow.com/questions/24839271/bash-ps1-line-wrap-issue-with-non-printing-characters-from-an-external-command
+# If we are constructing a prompt string, wrap non-printable characters in \[
+# and \] so the terminal can calculate the prompt length.
+# If we are constructing a prompt string dynamically (within "\$(command)"), use
+# \001 and \002 instead.
+NON_PRINTABLE_WRAPPING=none
+with_prompt_construction() {
+    local x=$NON_PRINTABLE_WRAPPING
+    export NON_PRINTABLE_WRAPPING=prompt
+    $@
+    export NON_PRINTABLE_WRAPPING=$x
+}
+with_dynamic_prompt_construction() {
+    local x=$NON_PRINTABLE_WRAPPING
+    export NON_PRINTABLE_WRAPPING=dynamic
+    $@
+    export NON_PRINTABLE_WRAPPING=$x
+}
+wrap_escape_sequence() {
+    local sequence=${1:?"need an escape sequence"}
+    case $NON_PRINTABLE_WRAPPING in
+        none)
+            # https://stackoverflow.com/a/25115223
+            # using printf to avoid awk adding a newline
+            awk -v s="$sequence" '{ printf "\033[%sm%s\033[0m", s, $0 }'
+            ;;
+        prompt)
+            awk -v s="$sequence" \
+                '{ printf "\\[\033[%sm\\]%s\\[\033[0m\\]", s, $0 }'
+            ;;
+        dynamic)
+            awk -v s="$sequence" \
+                '{ printf "\001\033[%sm\002%s\001\033[0m\002", s, $0 }'
+            ;;
+    esac
+}
+
+bold() {
+    # Make stdin bold
+    wrap_escape_sequence 1
+}
+italic() {
+    # Make stdin italic
+    wrap_escape_sequence 3
+}
+
+# http://mywiki.wooledge.org/BashFAQ/053
+# use these to get escape sequences:
+# local foreground_color=$(tput setaf "$c")
+# local background_color=$(tput setab "$c")
+# local reset=$(tput sgr0)
+fg_color() {
+    # Change the color of stdin by surrounding with escape sequences
+    local c=${1:?"need a color. A number 0-255"}
+    wrap_escape_sequence "38;5;$c"
+}
+bg_color() {
+    # Change the background color of stdin by surrounding with escape sequences
+    local c=${1:?"need a color. A number 0-255"}
+    wrap_escape_sequence "48;5;$c"
+}
+# https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
+fg_palette() {
+    for((i=16; i<256; i++)); do
+        printf "%03d" $i | fg_color $i
+        # WAY faster but ugly
+        # printf "\033[38;5;%dm%03d\033[0m" $i $i
+        [ ! $((($i - 15) % 6)) -eq 0 ] && printf ' ' || printf '\n'
+    done
+}
+bg_palette() {
+    for((i=16; i<256; i++)); do
+        printf "%03d" $i | bg_color $i
+        # WAY faster but ugly
+        # printf "\e[48;5;${i}m%03d" $i;
+        # printf '\e[0m';
+        [ ! $((($i - 15) % 6)) -eq 0 ] && printf ' ' || printf '\n'
+    done
+}
+
+# DEFAULT_PROMPT="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+default_prompt() {
+    printf "\u" | fg_color 6
+    printf "@"
+    printf "\h:" | fg_color 2
+    printf "\w" | fg_color 3 | bold
+    printf "\$ "
+}
+DEFAULT_PROMPT=`with_prompt_construction default_prompt`
+aws_profile_prompt() {
+    if [ -z "${AWS_PROFILE+foo}" ] ; then # Check if AWS_PROFILE set
+        printf ""
+    elif [ -z "$AWS_PROFILE" ] ; then # Check if AWS_PROFILE empty
+        printf "AWS Profile empty!" | italic | bg_color 1 | fg_color 16
+        printf " "
+    else
+        printf "AWS Profile: $AWS_PROFILE" | bold | fg_color 16 | bg_color 220
+        printf " "
+    fi
+}
+
+# I don't like setting PS1 within PROMPT_COMMAND because it prevents me from
+# changing PS1 at the command line if I feel like it.
+get_prompt() {
+    printf "\$(with_dynamic_prompt_construction aws_profile_prompt)"
+    printf "$DEFAULT_PROMPT"
+}
+export PS1=`get_prompt`
