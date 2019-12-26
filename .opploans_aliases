@@ -1,0 +1,11 @@
+alias gdod="cd ~/dev/bw-dod-scripts"
+alias glaap="cd ~/dev/laaplace"
+alias gbb="cd ~/dev/bankbucl"
+alias gla="cd ~/dev/loanarranger"
+alias glaa="cd ~/dev/laalaaland"
+alias gcoll="cd ~/dev/collections"
+alias gaud="cd ~/dev/audit"
+alias glz="cd ~/dev/leadzeppelin"
+alias gtee="cd ~/dev/clj-http-tee"
+alias gmet="cd ~/dev/metaform"
+
