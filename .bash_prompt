@@ -78,15 +78,16 @@ bg_palette() {
     done
 }
 
-# DEFAULT_PROMPT="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-default_prompt() {
-    printf "\u" | fg_color 6
+# DEFAULT_ITERM2_PROMPT="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+default_iterm2_prompt() {
+    # needs to be echo instead of printf for ubuntu
+    echo "\u" | fg_color 6
     printf "@"
     printf "\h:" | fg_color 2
     printf "\w" | fg_color 3 | bold
     printf "\$ "
 }
-DEFAULT_PROMPT=`with_prompt_construction default_prompt`
+DEFAULT_ITERM2_PROMPT=`with_prompt_construction default_iterm2_prompt`
 aws_profile_prompt() {
     if [ -z "${AWS_PROFILE+foo}" ] ; then # Check if AWS_PROFILE set
         printf ""
@@ -101,8 +102,7 @@ aws_profile_prompt() {
 
 # I don't like setting PS1 within PROMPT_COMMAND because it prevents me from
 # changing PS1 at the command line if I feel like it.
-get_prompt() {
+get_iterm2_prompt() {
     printf "\$(with_dynamic_prompt_construction aws_profile_prompt)"
-    printf "$DEFAULT_PROMPT"
+    printf "$DEFAULT_ITERM2_PROMPT"
 }
-export PS1=`get_prompt`
