@@ -558,6 +558,17 @@ dump."
   (smartparens-strict-mode 't)
   (aggressive-indent-mode 't))
 
+(defun dotspacemacs/join-let-bindings ()
+  (interactive)
+  ;; like save-excursion, but we need to set the marker type to 't
+  (let ((m (point-marker)))
+    (set-marker-insertion-type m 't)
+    (clojure--goto-let)
+    (sp-unwrap-sexp)
+    (kill-sexp)
+    (sp-join-sexp)
+    (goto-char m)))
+
 (defun dotspacemacs/clojure-mode-hook ()
   (dotspacemacs/lisp-config)
 
@@ -566,19 +577,27 @@ dump."
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w")
 
+  ;; , r j l to join let bindings
+  (spacemacs/set-leader-keys-for-major-mode
+    'clojure-mode "r j l" 'dotspacemacs/join-let-bindings)
+
   ;; Custom indentations
-  (put-clojure-indent 'as-> 'always-indent)
-  (put-clojure-indent 'try+ 0)
-  (put-clojure-indent 'middleware 1)
-  (put-clojure-indent 'op/p 1)
-  (put-clojure-indent 'wrap-response 3)
-  (put-clojure-indent 'context 2)
+  (put-clojure-indent 'DELETE 2)
   (put-clojure-indent 'GET 2)
   (put-clojure-indent 'POST 2)
-  (put-clojure-indent 'loop* 1)
   (put-clojure-indent 'addtest 1)
+  (put-clojure-indent 'as-> 'always-indent)
+  (put-clojure-indent 'context 2)
+  (put-clojure-indent 'loop* 1)
+  (put-clojure-indent 'middleware 1)
+  (put-clojure-indent 'op/p 1)
+  (put-clojure-indent 'pending 1)
+  (put-clojure-indent 'route-middleware 1)
+  (put-clojure-indent 'routes 0)
+  (put-clojure-indent 'try+ 0)
   (put-clojure-indent 'wait-for 1)
-  (put-clojure-indent 'pending 1))
+  (put-clojure-indent 'scrub-log 0)
+  (put-clojure-indent 'wrap-response 3))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
