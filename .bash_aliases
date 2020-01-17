@@ -6,6 +6,7 @@ alias wdiff="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\03
 
 alias isabelle="/home/joey/Desktop/Isabelle2017/Isabelle2017"
 
+alias kickemacs='pkill -SIGUSR2 Emacs'
 alias emacs='emacs -nw'
 alias emacsd='emacs --daemon'
 alias emacsc=emacsclient

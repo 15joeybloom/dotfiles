@@ -79,6 +79,7 @@ bg_palette() {
 }
 
 # DEFAULT_ITERM2_PROMPT="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+# DEFAULT_ITERM2_PROMPT="\[\033[38;5;6m\]\u\[\033[0m\]@\[\033[38;5;2m\]\h:\[\033[1;38;5;3m\]\w\[\033[0m\]\$ "
 default_iterm2_prompt() {
     # needs to be echo instead of printf for ubuntu
     echo "\u" | fg_color 6
