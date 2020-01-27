@@ -581,6 +581,10 @@ dump."
   (spacemacs/set-leader-keys-for-major-mode
     'clojure-mode "r j l" 'dotspacemacs/join-let-bindings)
 
+  (setq clojure-indent-style 'align-arguments)
+  ;; (setq clojure-indent-style 'always-align)
+  ;; (setq clojure-indent-style 'always-indent)
+
   ;; Custom indentations
   (put-clojure-indent 'DELETE 2)
   (put-clojure-indent 'GET 2)
@@ -597,7 +601,8 @@ dump."
   (put-clojure-indent 'try+ 0)
   (put-clojure-indent 'wait-for 1)
   (put-clojure-indent 'scrub-log 0)
-  (put-clojure-indent 'wrap-response 3))
+  (put-clojure-indent 'wrap-response 3)
+  (put-clojure-indent 'lz-post-lead 2))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
