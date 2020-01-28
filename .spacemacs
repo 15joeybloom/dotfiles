@@ -590,7 +590,7 @@ dump."
   (put-clojure-indent 'GET 2)
   (put-clojure-indent 'POST 2)
   (put-clojure-indent 'addtest 1)
-  (put-clojure-indent 'as-> 'always-indent)
+  (put-clojure-indent 'as-> 'defun)
   (put-clojure-indent 'context 2)
   (put-clojure-indent 'loop* 1)
   (put-clojure-indent 'middleware 1)
@@ -603,7 +603,8 @@ dump."
   (put-clojure-indent 'scrub-log 0)
   (put-clojure-indent 'wrap-response 3)
   (put-clojure-indent 'lz-post-lead 2)
-  (put-clojure-indent 'fresh-chemicals 1))
+  (put-clojure-indent 'fresh-chemicals 2)
+  (put-clojure-indent 'fresh-weights 2))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
