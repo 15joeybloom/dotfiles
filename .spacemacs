@@ -602,7 +602,8 @@ dump."
   (put-clojure-indent 'wait-for 1)
   (put-clojure-indent 'scrub-log 0)
   (put-clojure-indent 'wrap-response 3)
-  (put-clojure-indent 'lz-post-lead 2))
+  (put-clojure-indent 'lz-post-lead 2)
+  (put-clojure-indent 'fresh-chemicals 1))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -631,6 +632,9 @@ before packages are loaded."
 
   ;; Remove M-[ binding since it's triggered by the mouse.
   (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-[") nil)
+
+  ;; Remove M-: binding since I'm too fast with ESC :w exiting insert state :P
+  (define-key global-map (kbd "M-:") nil)
 
   ;; SPC o a and SPC o x like C-a and C-x in vim
   (evil-leader/set-key "o a" 'evil-numbers/inc-at-pt)
@@ -697,6 +701,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(cider-repl-display-help-banner nil)
    '(evil-lisp-state-enter-lisp-state-on-command nil)
    '(json-reformat:indent-width 2)
    '(package-selected-packages
