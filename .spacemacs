@@ -510,7 +510,8 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  )
+  ;; Fix crazy abbrev expansions in coq mode
+  (setq evil-want-abbrev-expand-on-insert-exit nil))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
@@ -622,6 +623,9 @@ before packages are loaded."
                 python-indent-offset 2
                 tab-width 2)
 
+  ;; Fix undo in coq mode
+  (setq undo-tree-enable-undo-in-region nil)
+
   (add-hook 'rust-mode-hook 'dotspacemacs/rust-mode-hook)
   (add-hook 'clojure-mode-hook 'dotspacemacs/clojure-mode-hook)
   (add-hook 'emacs-lisp-mode-hook 'dotspacemacs/lisp-config)
@@ -637,9 +641,6 @@ before packages are loaded."
 
   ;; Remove M-: binding since I'm too fast with ESC :w exiting insert state :P
   (define-key global-map (kbd "M-:") nil)
-
-  ;; This hook causes crazy abbrev expansions in coq mode
-  (remove-hook 'evil-insert-state-exit-hook 'expand-abbrev)
 
   ;; SPC o a and SPC o x like C-a and C-x in vim
   (evil-leader/set-key "o a" 'evil-numbers/inc-at-pt)
