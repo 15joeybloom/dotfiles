@@ -597,7 +597,7 @@ dump."
   (put-clojure-indent 'op/p 1)
   (put-clojure-indent 'pending 1)
   (put-clojure-indent 'route-middleware 1)
-  (put-clojure-indent 'routes 0)
+  (put-clojure-indent 'routes nil)
   (put-clojure-indent 'try+ 0)
   (put-clojure-indent 'wait-for 1)
   (put-clojure-indent 'scrub-log 0)
