@@ -583,9 +583,7 @@ dump."
   (spacemacs/set-leader-keys-for-major-mode
     'clojure-mode "r j l" 'dotspacemacs/join-let-bindings)
 
-  (setq clojure-indent-style 'align-arguments)
-  ;; (setq clojure-indent-style 'always-align)
-  ;; (setq clojure-indent-style 'always-indent)
+  (setq clojure-indent-style 'always-align)
 
   ;; Custom indentations
   (put-clojure-indent 'DELETE 2)
