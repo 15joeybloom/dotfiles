@@ -631,6 +631,9 @@ before packages are loaded."
   (add-hook 'java-mode-hook 'dotspacemacs/java-mode-hook)
   (add-hook 'c++-mode-hook 'dotspacemacs/java-mode-hook)
 
+  (add-hook 'python-mode-hook (lambda () (evil-cleverparens-mode 't)))
+  (add-hook 'python-mode-hook 'spacemacs/toggle-fill-column-indicator-on)
+
   ;; gs in normal mode to split lines
   (define-key evil-normal-state-map "gs" 'newline-and-indent)
 
