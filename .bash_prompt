@@ -86,7 +86,7 @@ default_iterm2_prompt() {
     printf "@"
     printf "\h:" | fg_color 2
     printf "\w" | fg_color 3 | bold
-    printf "\$ "
+    printf " "
 }
 DEFAULT_ITERM2_PROMPT=`with_prompt_construction default_iterm2_prompt`
 aws_profile_prompt() {
@@ -101,9 +101,20 @@ aws_profile_prompt() {
     fi
 }
 
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+git_branch_prompt() {
+    # fg lavender
+    printf "$(parse_git_branch)" | fg_color 141
+}
+
 # I don't like setting PS1 within PROMPT_COMMAND because it prevents me from
 # changing PS1 at the command line if I feel like it.
 get_iterm2_prompt() {
     printf "\$(with_dynamic_prompt_construction aws_profile_prompt)"
     printf "$DEFAULT_ITERM2_PROMPT"
+    printf "\$(with_dynamic_prompt_construction git_branch_prompt)"
+    printf "\$ "
 }
