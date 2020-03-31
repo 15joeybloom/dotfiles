@@ -1,4 +1,5 @@
 alias gdod="cd ~/dev/bw-dod-scripts"
+alias gopp="cd ~/dev/opp"
 alias glaap="cd ~/dev/laaplace"
 alias gbb="cd ~/dev/bankbucl"
 alias gla="cd ~/dev/loanarranger"
@@ -9,3 +10,5 @@ alias glz="cd ~/dev/leadzeppelin"
 alias gtee="cd ~/dev/clj-http-tee"
 alias gmet="cd ~/dev/metaform"
 
+alias awsping='aws sts get-caller-identity'
+alias auth="python3 ~/.aws/onelogin/onelogin-aws-assume-role.py --onelogin-password \"\`lpass show --password onelogin.com\`\" --duration 28800"

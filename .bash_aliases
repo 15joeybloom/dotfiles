@@ -15,6 +15,4 @@ alias emacsc=emacsclient
 alias emacsclient='emacsclient -nw'
 alias sbp='source ~/.bash_profile'
 alias sp='source ~/.profile'
-alias awsping='aws sts get-caller-identity'
-alias auth="python3 ~/.aws/onelogin/onelogin-aws-assume-role.py --onelogin-password \"\`lpass show --password onelogin.com\`\" --duration 28800"
 alias scrb='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ; rvm use ruby-2.3.8'
