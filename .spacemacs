@@ -664,7 +664,32 @@ before packages are loaded."
       (setq paste-from-clipboard-cmd "xsel -o -b")
       )
     )
-   )
+   (custom-set-variables
+    ;; custom-set-variables was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+    '(cider-repl-display-help-banner nil)
+    '(evil-lisp-state-enter-lisp-state-on-command nil)
+    '(json-reformat:indent-width 2)
+    '(magit-ediff-dwim-show-on-hunks t)
+    '(package-selected-packages
+      (quote
+       (proof-general company-coq company-math math-symbol-lists sqlup-mode sql-indent figlet helm-rtags google-c-style flycheck-rtags disaster cquery cpp-auto-include company-rtags rtags company-c-headers clang-format ccls lsp-python-ms python feature-mode flycheck-rust flycheck-pos-tip flycheck-haskell dap-mode bui tree-mode company-terraform terraform-mode hcl-mode csv-mode noflet mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime sbt-mode scala-mode company-emacs-eclim eclim web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data yasnippet-snippets ivy-yasnippet intero fuzzy dante lcr company-tern company-statistics company-ghci company-ghc company-cabal clojure-snippets auto-yasnippet attrap ac-ispell auto-complete yaml-mode lsp-haskell lsp-mode dash-functional hlint-refactor hindent haskell-snippets ghc haskell-mode cmm-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope helm xcscope helm-core ggtags cython-mode counsel-gtags company-anaconda company blacken anaconda-mode pythonic web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+    '(safe-local-variable-values
+      (quote
+       ((cider-default-cljs-repl quote figwheel)
+        (javascript-backend . tern)
+        (javascript-backend . lsp))))
+    '(scroll-margin 5)
+    '(vc-follow-symlinks t))
+   (custom-set-faces
+    ;; custom-set-faces was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+    )
+   )   )
 
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
@@ -703,27 +728,3 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(cider-repl-display-help-banner nil)
-   '(evil-lisp-state-enter-lisp-state-on-command nil)
-   '(json-reformat:indent-width 2)
-   '(package-selected-packages
-     (quote
-      (proof-general company-coq company-math math-symbol-lists sqlup-mode sql-indent figlet helm-rtags google-c-style flycheck-rtags disaster cquery cpp-auto-include company-rtags rtags company-c-headers clang-format ccls lsp-python-ms python feature-mode flycheck-rust flycheck-pos-tip flycheck-haskell dap-mode bui tree-mode company-terraform terraform-mode hcl-mode csv-mode noflet mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime sbt-mode scala-mode company-emacs-eclim eclim web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data yasnippet-snippets ivy-yasnippet intero fuzzy dante lcr company-tern company-statistics company-ghci company-ghc company-cabal clojure-snippets auto-yasnippet attrap ac-ispell auto-complete yaml-mode lsp-haskell lsp-mode dash-functional hlint-refactor hindent haskell-snippets ghc haskell-mode cmm-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope helm xcscope helm-core ggtags cython-mode counsel-gtags company-anaconda company blacken anaconda-mode pythonic web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
-   '(safe-local-variable-values
-     (quote
-      ((cider-default-cljs-repl quote figwheel)
-       (javascript-backend . tern)
-       (javascript-backend . lsp))))
-   '(scroll-margin 5)
-   '(vc-follow-symlinks t))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   ) )

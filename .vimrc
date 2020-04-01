@@ -8,6 +8,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'rust-lang/rust.vim'
 Plugin 'avakhov/vim-yaml'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'Vimjas/vim-python-pep8-indent'
 Bundle 'terryma/vim-multiple-cursors'
 
 " All of your Plugins must be added before the following line
