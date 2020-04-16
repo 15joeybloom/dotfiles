@@ -110,9 +110,21 @@ git_branch_prompt() {
     printf "$(parse_git_branch)" | fg_color 141
 }
 
+exit_code_prompt() {
+    local EXIT=${1:?'need to pass $? to this function'}
+    if [[ ${EXIT} = "0" ]]; then
+        # yellow
+        printf "^_^" | fg_color 220
+    else
+        # red
+        printf "${EXIT} O_O" | fg_color 1
+    fi
+}
+
 # I don't like setting PS1 within PROMPT_COMMAND because it prevents me from
 # changing PS1 at the command line if I feel like it.
 get_iterm2_prompt() {
+    printf "\$(with_dynamic_prompt_construction exit_code_prompt \"\$?\")"
     printf "\$(with_dynamic_prompt_construction aws_profile_prompt)"
     printf "$DEFAULT_ITERM2_PROMPT"
     printf "\$(with_dynamic_prompt_construction git_branch_prompt)"

@@ -27,7 +27,7 @@ set nocompatible
 set number
 set nowrap
 set showmode
-set tw=80
+set textwidth=80
 set smarttab
 set smartindent
 set softtabstop=4
@@ -205,6 +205,9 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
 
+cnoreabbrev svimrc source ~/.vimrc
+cnoreabbrev evimrc e ~/.vimrc
+
 " --- K framework
 
 au BufRead,BufNewFile *.k set filetype=kframework
@@ -251,3 +254,11 @@ autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . 
 
 " stylish-haskell alias
 command! Stylish %!stylish-haskell
+
+" python
+autocmd Filetype python set colorcolumn=80
+autocmd Filetype python set textwidth=79
+
+" swift
+autocmd Filetype swift set colorcolumn=81
+autocmd Filetype swift set textwidth=80
