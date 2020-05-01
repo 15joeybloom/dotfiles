@@ -12,6 +12,11 @@ alias gmet="cd ~/dev/metaform"
 alias gham="cd ~/dev/hammurabi"
 
 alias awsping='aws sts get-caller-identity'
-alias auth="python3 ~/.aws/onelogin/onelogin-aws-assume-role.py --onelogin-password \"\`lpass show --password onelogin.com\`\" --duration 28800"
-
 alias mytree='tree -I "*pycache*|*egg*"'
+
+# alias auth="python3 ~/.aws/onelogin/onelogin-aws-assume-role.py --onelogin-password \"\`lpass show --password onelogin.com\`\" --duration 28800"
+alias auth="awscred"
+alias devtest="awscred -p devtest --role devtest-developer"
+alias prodro="awscred -p prod --role prod-read"
+alias demoro="awscred -p demo --role demo-read"
+alias sandbox1="awscred -p sandbox1 --role sandbox1-developer"
