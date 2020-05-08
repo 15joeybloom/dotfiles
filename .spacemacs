@@ -71,7 +71,8 @@ This function should only modify configuration layer settings."
             shell-default-position 'left)
      ;; spell-checking
      syntax-checking
-     treemacs
+     ;; treemacs
+     neotree
      ;; version-control
      )
 
@@ -523,6 +524,26 @@ dump."
 (defun dotspacemacs/fill-column (n)
   (set-fill-column n)
   (turn-on-fci-mode))
+
+;; Coupled with a script that allows me to inject a shell's environment variable
+;; values into a running emacs daemon.
+;; #! /bin/bash
+;; fn=/tmp/source-emacs-temp.txt
+;; printenv > "$fn"
+;; emacsclient -e '(dotspacemacs/my-update-env "'"$fn"'")' >/dev/null
+(defun dotspacemacs/my-update-env (file-name)
+  (let ((str
+         (with-temp-buffer
+           (insert-file-contents file-name)
+           (buffer-string))))
+    (setq lst (split-string str))
+    (while lst
+      (setq cur (car lst))
+      (when (string-match "^\\(.*?\\)=\\(.*\\)" cur)
+        (setq var (match-string 1 cur))
+        (setq value (match-string 2 cur))
+        (setenv var value))
+      (setq lst (cdr lst)))))
 
 (defun dotspacemacs/haskell-mode-hook ()
   (dotspacemacs/fill-column 80)
