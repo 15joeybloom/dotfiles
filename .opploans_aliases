@@ -10,6 +10,7 @@ alias glz="cd ~/dev/leadzeppelin"
 alias gtee="cd ~/dev/clj-http-tee"
 alias gmet="cd ~/dev/metaform"
 alias gham="cd ~/dev/hammurabi"
+alias gpay="cd ~/dev/paypredictor"
 
 alias awsping='aws sts get-caller-identity'
 alias mytree='tree -I "*pycache*|*egg*"'
