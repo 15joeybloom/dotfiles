@@ -75,6 +75,7 @@ This function should only modify configuration layer settings."
      ;; treemacs
      neotree
      ;; version-control
+     lsp
      )
 
    ;; List of additional packages that will be installed without being
@@ -646,10 +647,6 @@ before packages are loaded."
   (global-hl-line-mode -1)
   (purpose-mode -1)
   (spacemacs/toggle-zero-based-column-indexing-off)
-  (setq projectile-switch-project-action
-        (lambda ()
-          (progn (neotree-projectile-action)
-                 (projectile-find-file))))
 
   (setq-default c-basic-offset 2
                 python-indent-offset 2
