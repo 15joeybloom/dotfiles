@@ -63,8 +63,7 @@ This function should only modify configuration layer settings."
      git
      ;; markdown
      (multiple-cursors :variables
-                       multiple-cursors-backend 'mc
-                       mc/cmds-to-run-once '(upcase-region))
+                       multiple-cursors-backend 'evil-mc)
      ;; org
      (shell :variables
             shell-default-shell 'shell
@@ -573,7 +572,8 @@ dump."
 
 (defun dotspacemacs/java-mode-hook ()
   (dotspacemacs/fill-column 80)
-  (rainbow-delimiters-mode-disable))
+  (rainbow-delimiters-mode-disable)
+  (setq-default c-basic-offset 4))
 
 (defun spaces ()
   (interactive)
