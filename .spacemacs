@@ -674,6 +674,10 @@ before packages are loaded."
   ;; Remove M-: binding since I'm too fast with ESC :w exiting insert state :P
   (define-key global-map (kbd "M-:") nil)
 
+  ;; Make TAB (and therefore C-i, since they are indistinguishable to terminals)
+  ;; jump forward in the jump list, like vim.
+  (define-key evil-motion-state-map (kbd "TAB") 'evil-jump-forward)
+
   ;; SPC o a and SPC o x like C-a and C-x in vim
   (evil-leader/set-key "o a" 'evil-numbers/inc-at-pt)
   (evil-leader/set-key "o x" 'evil-numbers/dec-at-pt)
@@ -717,7 +721,8 @@ before packages are loaded."
           (message "graphics active"))
       (insert (shell-command-to-string paste-from-clipboard-cmd))))
   (evil-leader/set-key "o y" 'copy-to-clipboard)
-  (evil-leader/set-key "o p" 'paste-from-clipboard))
+  (evil-leader/set-key "o p" 'paste-from-clipboard)
+  )
 
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
