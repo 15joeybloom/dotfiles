@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(coq
+   '(html
+     coq
      sql
      c-c++
 		 java
@@ -235,7 +236,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 18
                                :weight normal
                                :width normal)
 
@@ -575,6 +576,9 @@ dump."
   (rainbow-delimiters-mode-disable)
   (setq-default c-basic-offset 4))
 
+(defun dotspacemacs/typescript-mode-hook ()
+  (dotspacemacs/fill-column 80))
+
 (defun spaces ()
   (interactive)
   (setq indent-tabs-mode nil)
@@ -620,6 +624,7 @@ dump."
   (put-clojure-indent 'DELETE 2)
   (put-clojure-indent 'GET 2)
   (put-clojure-indent 'POST 2)
+  (put-clojure-indent 'PUT 2)
   (put-clojure-indent 'addtest 1)
   (put-clojure-indent 'are 1)
   (put-clojure-indent 'as-> 'defun)
@@ -636,6 +641,7 @@ dump."
   (put-clojure-indent 'try+ 0)
   (put-clojure-indent 'wait-for 1)
   (put-clojure-indent 'wrap-response 3)
+  (put-clojure-indent 'prop/for-all 1)
   )
 
 (defun dotspacemacs/user-config ()
@@ -661,6 +667,7 @@ before packages are loaded."
   (add-hook 'haskell-mode-hook 'dotspacemacs/haskell-mode-hook)
   (add-hook 'java-mode-hook 'dotspacemacs/java-mode-hook)
   (add-hook 'c++-mode-hook 'dotspacemacs/java-mode-hook)
+  (add-hook 'typescript-mode-hook 'dotspacemacs/typescript-mode-hook)
 
   (add-hook 'python-mode-hook (lambda () (evil-cleverparens-mode 't)))
   (add-hook 'python-mode-hook 'spacemacs/toggle-fill-column-indicator-on)
@@ -676,11 +683,18 @@ before packages are loaded."
 
   ;; Make TAB (and therefore C-i, since they are indistinguishable to terminals)
   ;; jump forward in the jump list, like vim.
+  ;; TODO: don't do this in org mode.
   (define-key evil-motion-state-map (kbd "TAB") 'evil-jump-forward)
+
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
 
   ;; SPC o a and SPC o x like C-a and C-x in vim
   (evil-leader/set-key "o a" 'evil-numbers/inc-at-pt)
   (evil-leader/set-key "o x" 'evil-numbers/dec-at-pt)
+
+  (spacemacs/toggle-fullscreen-frame-on)
+  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
   ;; Yank to system clipboard
   ;; https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
@@ -734,14 +748,38 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(ansi-color-names-vector
+     ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
    '(cider-lein-parameters "repl :headless :host localhost")
    '(cider-repl-display-help-banner nil)
+   '(custom-safe-themes
+     (quote
+      ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
    '(evil-lisp-state-enter-lisp-state-on-command nil)
+   '(evil-want-Y-yank-to-eol nil)
+   '(hl-todo-keyword-faces
+     (quote
+      (("TODO" . "#dc752f")
+       ("NEXT" . "#dc752f")
+       ("THEM" . "#2d9574")
+       ("PROG" . "#4f97d7")
+       ("OKAY" . "#4f97d7")
+       ("DONT" . "#f2241f")
+       ("FAIL" . "#f2241f")
+       ("DONE" . "#86dc2f")
+       ("NOTE" . "#b1951d")
+       ("KLUDGE" . "#b1951d")
+       ("HACK" . "#b1951d")
+       ("TEMP" . "#b1951d")
+       ("FIXME" . "#dc752f")
+       ("XXX+" . "#dc752f")
+       ("\\?\\?\\?+" . "#dc752f"))))
    '(json-reformat:indent-width 2)
    '(magit-ediff-dwim-show-on-hunks t)
    '(package-selected-packages
      (quote
       (tide typescript-mode proof-general company-coq company-math math-symbol-lists sqlup-mode sql-indent figlet helm-rtags google-c-style flycheck-rtags disaster cquery cpp-auto-include company-rtags rtags company-c-headers clang-format ccls lsp-python-ms python feature-mode flycheck-rust flycheck-pos-tip flycheck-haskell dap-mode bui tree-mode company-terraform terraform-mode hcl-mode csv-mode noflet mvn meghanada maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime sbt-mode scala-mode company-emacs-eclim eclim web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data yasnippet-snippets ivy-yasnippet intero fuzzy dante lcr company-tern company-statistics company-ghci company-ghc company-cabal clojure-snippets auto-yasnippet attrap ac-ispell auto-complete yaml-mode lsp-haskell lsp-mode dash-functional hlint-refactor hindent haskell-snippets ghc haskell-mode cmm-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope helm xcscope helm-core ggtags cython-mode counsel-gtags company-anaconda company blacken anaconda-mode pythonic web-beautify tern prettier-js livid-mode skewer-mode js2-refactor js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd add-node-modules-path evil-cleverparens vimrc-mode dactyl-mode parseedn parseclj a xterm-color shell-pop multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help cargo racer markdown-mode toml-mode pos-tip rust-mode smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit transient git-commit with-editor clj-refactor inflections edn multiple-cursors paredit yasnippet peg cider-eval-sexp-fu cider sesman queue clojure-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+   '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
    '(safe-local-variable-values
      (quote
       ((cider-default-cljs-repl quote figwheel)
