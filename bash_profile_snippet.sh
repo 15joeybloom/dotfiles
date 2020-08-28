@@ -1,7 +1,7 @@
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-if [ -f ~/.bash_aliases ]; then
+if [ -f ~/.opploans_aliases ]; then
     . ~/.opploans_aliases
 fi
 if [ -f ~/.bash_prompt ]; then

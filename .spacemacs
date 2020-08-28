@@ -698,8 +698,11 @@ before packages are loaded."
    ;; Linux
    ((string-equal system-type "gnu/linux") ; linux
     (progn
-      (setq save-to-clipboard-cmd "xsel -i -b")
-      (setq paste-from-clipboard-cmd "xsel -o -b"))))
+      ;; NB: May have to add -b here if you're running linux natively. But
+      ;; XQuartz pasteboard sync needs to use the PRIMARY selection rather than
+      ;; CLIPBOARD so can't have -b if linux is in a VM on a macos host.
+      (setq save-to-clipboard-cmd "xsel -i")
+      (setq paste-from-clipboard-cmd "xsel -o"))))
 
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
