@@ -96,7 +96,7 @@ aws_profile_prompt() {
         printf "AWS Profile empty!" | italic | bg_color 1 | fg_color 16
         printf " "
     else
-        printf "AWS Profile: $AWS_PROFILE" | bold | fg_color 16 | bg_color 220
+        printf "$AWS_PROFILE" | bold | fg_color 16 | bg_color 220
         printf " "
     fi
 }

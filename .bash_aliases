@@ -8,6 +8,8 @@ alias path="echo $PATH | tr ':' '\n'"
 
 alias isabelle="/home/joey/Desktop/Isabelle2017/Isabelle2017"
 
+alias fd=fd-find
+
 alias kickemacs='pkill -SIGUSR2 Emacs'
 alias emacs='emacs -nw'
 alias emacsd='emacs --daemon'
@@ -18,3 +20,4 @@ alias sbp='source ~/.bash_profile'
 alias sp='source ~/.profile'
 alias scrb='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ; rvm use 2.4.0'
 alias dockerprune='docker container prune --filter "until=48h"'
+alias devstatus='pushd ~/dev; for d in `ls`; do pushd $d; git status; popd; done; popd'

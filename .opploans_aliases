@@ -21,3 +21,5 @@ alias devtest="awscred -p devtest --role devtest-developer"
 alias prodro="awscred -p prod --role prod-read"
 alias demoro="awscred -p demo --role demo-read"
 alias sandbox1="awscred -p sandbox1 --role sandbox1-developer"
+
+alias timestamp='date +"%Y%m%d%H%M"'
