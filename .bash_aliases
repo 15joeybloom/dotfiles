@@ -18,3 +18,4 @@ alias sbp='source ~/.bash_profile'
 alias sp='source ~/.profile'
 alias scrb='[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ; rvm use 2.4.0'
 alias dockerprune='docker container prune --filter "until=48h"'
+alias fd=fdfind
