@@ -8,6 +8,8 @@ alias path="echo $PATH | tr ':' '\n'"
 
 alias isabelle="/home/joey/Desktop/Isabelle2017/Isabelle2017"
 
+alias fd=fd-find
+
 alias kickemacs='pkill -SIGUSR2 Emacs'
 alias emacs='emacs -nw'
 alias emacsd='emacs --daemon'
