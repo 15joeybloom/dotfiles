@@ -121,8 +121,8 @@
 ;;   (emacs-lisp-mode . evil-cleverparens-mode))
 
 (use-package! fill-column-indicator
-  :hook
-  (clojure-mode . fci-mode))
+  :hook ((clojure-mode . fci-mode)
+         (typescript-mode . fci-mode)))
 
 (use-package! smartparens
   :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
