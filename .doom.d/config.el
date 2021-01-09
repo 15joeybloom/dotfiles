@@ -53,6 +53,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq scroll-margin 5)
+
 ;; , instead of SPC m
 (setq doom-localleader-key ",")
 
