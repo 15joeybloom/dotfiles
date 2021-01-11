@@ -53,6 +53,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; By default, magit log shows relative timestamps. Absolute timestamps are more
+;; helpful.
+(setq magit-log-margin
+      ;; Example alternate time format: "%Y-%m-%d %H:%M:%S %Z %a"
+      '(t "%c" magit-log-margin-width t 18))
+
 ;; , instead of SPC m
 (setq doom-localleader-key ",")
 
@@ -119,8 +125,9 @@
 ;;   (emacs-lisp-mode . evil-cleverparens-mode))
 
 (use-package! fill-column-indicator
-  :hook
-  (clojure-mode . fci-mode))
+  :hook ((clojure-mode . fci-mode)
+         (lisp-mode . fci-mode)
+         (emacs-lisp-mode . fci-mode)))
 
 (use-package! smartparens
   :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
@@ -141,7 +148,13 @@
     (wrap-response 3)
     (p 1)))
 
-(set-popup-rule! "^\\*cider-repl" :select nil :side 'right :size 80)
+;; make cider REPL buffer appear to the right instead of at the bottom
+(use-package! cider
+  :config
+  (set-popup-rule! "^\\*cider-repl"
+    :select nil
+    :side 'right
+    :size 80))
 
 ;; paredit
 (map! :leader
@@ -158,3 +171,10 @@
        "J" #'sp-join-sexp)
       (:prefix-map ("j" . "split")
        "s" #'sp-split-sexp))
+
+;; TODO: set up better cljr refactor bindings
+;; (map! :map clojure-refactor-map
+;;       :localleader
+;;       (:prefix-map ("r" . "refactor")
+;;        (:prefix-map ("r" . "rename")
+;;         "s" #'cljr-rename-symbol)))
