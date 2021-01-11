@@ -53,6 +53,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq scroll-margin 5)
+
 ;; By default, magit log shows relative timestamps. Absolute timestamps are more
 ;; helpful.
 (setq magit-log-margin
@@ -127,7 +129,8 @@
 (use-package! fill-column-indicator
   :hook ((clojure-mode . fci-mode)
          (lisp-mode . fci-mode)
-         (emacs-lisp-mode . fci-mode)))
+         (emacs-lisp-mode . fci-mode)
+         (typescript-mode . fci-mode)))
 
 (use-package! smartparens
   :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
