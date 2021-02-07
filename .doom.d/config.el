@@ -138,6 +138,12 @@
          (lisp-mode . smartparens-strict-mode)
          (emacs-lisp-mode . smartparens-strict-mode)))
 
+;; Smartparens gets in the way in text mode. I often want single apostrophes and
+;; smartparens assumes I want a matching pair.
+(after! text-mode
+  (add-hook! 'text-mode-hook
+             turn-off-smartparens-mode))
+
 ;; Fix unbalanced parens in insert state
 ;; https://github.com/hlissner/doom-emacs/issues/478
 (after! smartparens
