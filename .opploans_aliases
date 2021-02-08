@@ -25,3 +25,5 @@ alias sandbox1="awscred -p sandbox1 --role sandbox1-developer"
 alias devstatus='pushd ~/dev; for d in `ls`; do pushd $d; git status; popd; done; popd'
 
 alias timestamp='date +"%Y%m%d%H%M"'
+
+alias local_tf_run="~/dev/ezcs/local-tf-run/bin/local_tf_run"
