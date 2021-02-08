@@ -134,15 +134,18 @@
 
 (use-package! smartparens
   :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  :config
+  ;; Fix unbalanced parens in insert state
+  ;; https://github.com/hlissner/doom-emacs/issues/478
+  (dolist (brace '("(" "{" "[" "'" "\""))
+    (sp-pair brace nil :unless nil))
   :hook ((clojure-mode . smartparens-strict-mode)
          (lisp-mode . smartparens-strict-mode)
-         (emacs-lisp-mode . smartparens-strict-mode)))
-
-;; Fix unbalanced parens in insert state
-;; https://github.com/hlissner/doom-emacs/issues/478
-(after! smartparens
-  (dolist (brace '("(" "{" "[" "'" "\""))
-    (sp-pair brace nil :unless nil)))
+         (emacs-lisp-mode . smartparens-strict-mode)
+         (typescript-mode . turn-off-smartparens-mode)
+         ;; Smartparens gets in the way in text mode. I often want single apostrophes and
+         ;; smartparens assumes I want a matching pair.
+         (text-mode-hook . turn-off-smartparens-mode)))
 
 (after! clojure-mode
   (define-clojure-indent
