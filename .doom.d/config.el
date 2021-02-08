@@ -146,7 +146,9 @@
 
 (after! clojure-mode
   (define-clojure-indent
+    (addtest 1)
     (are 1)
+    (for-all 1)
     (match-result 1)
     (wrap-response 3)
     (p 1)))
