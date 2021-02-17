@@ -149,8 +149,14 @@
 
 (after! clojure-mode
   (define-clojure-indent
+    (GET 2)
+    (PATCH 2)
+    (PUT 2)
+    (POST 2)
+    (DELETE 2)
     (addtest 1)
     (are 1)
+    (context 2)
     (for-all 1)
     (match-result 1)
     (wrap-response 3)
