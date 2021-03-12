@@ -110,6 +110,51 @@
 ;; SPC t c to toggle fill column indicator
 (map! :leader "tc" #'fci-mode)
 
+;; Yank to system clipboard
+;; https://github.com/syl20bnr/spacemacs/issues/2222#issuecomment-481155006
+(cond
+ ;; OS X
+ ((string-equal system-type "darwin") ; Mac OS X
+  (progn
+    (setq save-to-clipboard-cmd "pbcopy")
+    (setq paste-from-clipboard-cmd "pbpaste")))
+ ;; Linux
+ ((string-equal system-type "gnu/linux") ; linux
+  (progn
+    ;; NB: May have to add -b here if you're running linux natively. But
+    ;; XQuartz pasteboard sync needs to use the PRIMARY selection rather than
+    ;; CLIPBOARD so can't have -b if linux is in a VM on a macos host.
+    ;; If it's not working with just -i, try it with -ib
+    (setq save-to-clipboard-cmd "xsel -ib")
+    (setq paste-from-clipboard-cmd "xsel -o"))))
+
+(defun copy-to-clipboard ()
+  "Copies selection to x-clipboard."
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+        (message "Yanked region to x-clipboard!")
+        (call-interactively 'clipboard-kill-ring-save))
+    (if (region-active-p)
+        (progn
+          (shell-command-on-region (region-beginning)
+                                   (region-end)
+                                   save-to-clipboard-cmd)
+          (message "Yanked region to clipboard!")
+          (deactivate-mark))
+      (message "No region active; can't yank to clipboard!"))))
+
+(defun paste-from-clipboard ()
+  "Pastes from x-clipboard."
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+        (clipboard-yank)
+        (message "graphics active"))
+    (insert (shell-command-to-string paste-from-clipboard-cmd))))
+;; (evil-leader/set-key "o y" 'copy-to-clipboard)
+;; (evil-leader/set-key "o p" 'paste-from-clipboard)
+
 ;; , e f eval-defun
 (map! :map emacs-lisp-mode-map :localleader :n "ef" #'eval-defun)
 (map! :map clojure-mode-map :localleader :n "ef" #'cider-eval-defun-at-point)
@@ -159,6 +204,7 @@
     (context 2)
     (for-all 1)
     (match-result 1)
+    (middleware 1)
     (wrap-response 3)
     (p 1)))
 
