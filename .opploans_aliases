@@ -1,15 +1,13 @@
-alias gdod="cd ~/dev/bw-dod-scripts"
-alias gopp="cd ~/dev/opp"
-alias glaap="cd ~/dev/laaplace"
+alias gaud="cd ~/dev/audit"
 alias gbb="cd ~/dev/bankbucl"
+alias gcoll="cd ~/dev/collections"
+alias gdod="cd ~/dev/bw-dod-scripts"
+alias gham="cd ~/dev/hammurabi"
+alias gho="cd ~/dev/hotpotato"
 alias gla="cd ~/dev/loanarranger"
 alias glaa="cd ~/dev/laalaaland"
-alias gcoll="cd ~/dev/collections"
-alias gaud="cd ~/dev/audit"
 alias glz="cd ~/dev/leadzeppelin"
-alias gtee="cd ~/dev/clj-http-tee"
-alias gmet="cd ~/dev/metaform"
-alias gham="cd ~/dev/hammurabi"
+alias gopp="cd ~/dev/opp"
 alias gpay="cd ~/dev/paypredictor"
 
 alias awsping='aws sts get-caller-identity'
@@ -21,6 +19,11 @@ alias devtest="awscred -p devtest --role devtest-developer"
 alias prodro="awscred -p prod --role prod-read"
 alias demoro="awscred -p demo --role demo-read"
 alias sandbox1="awscred -p sandbox1 --role sandbox1-developer"
+
+alias gdevtest="export AWS_PROFILE=devtest"
+alias gprodro="export AWS_PROFILE=prodro"
+alias gdemoro="export AWS_PROFILE=demoro"
+alias gsandbox1="export AWS_PROFILE=sandbox1"
 
 alias devstatus='pushd ~/dev; for d in `ls`; do pushd $d; git status; popd; done; popd'
 
