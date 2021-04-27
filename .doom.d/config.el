@@ -238,3 +238,8 @@
 ;;       (:prefix-map ("r" . "refactor")
 ;;        (:prefix-map ("r" . "rename")
 ;;         "s" #'cljr-rename-symbol)))
+
+(map! :leader
+      (:prefix-map ("a" . "joeystuff")
+       (:prefix-map ("c" . "comment")
+        "l" #'comment-line)))
