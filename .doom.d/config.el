@@ -232,6 +232,13 @@
       (:prefix-map ("j" . "split")
        "s" #'sp-split-sexp))
 
+;; flycheck
+;; flycheck-list-errors (SPC c x) is also useful
+(map! :leader
+      (:prefix-map ("e" . "error")
+       "n" #'flycheck-next-error
+       "p" #'flycheck-previous-error))
+
 ;; TODO: set up better cljr refactor bindings
 ;; (map! :map clojure-refactor-map
 ;;       :localleader
@@ -243,3 +250,12 @@
       (:prefix-map ("a" . "joeystuff")
        (:prefix-map ("c" . "comment")
         "l" #'comment-line)))
+
+;; This changes typescript mode to show eslint errors with flycheck.
+;; I can't figure out how to get both ts-ls errors and eslint errors to appear
+;; in flycheck together.
+;; (defun typescript-mode-setup ()
+;;   "Custom setup for Typescript mode"
+;;   (setq flycheck-checker 'javascript-eslint)
+;;   )
+;; (add-hook 'typescript-mode-hook 'typescript-mode-setup)
