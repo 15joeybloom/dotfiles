@@ -15,14 +15,14 @@ alias mytree='tree -I "*pycache*|*egg*"'
 
 # alias auth="python3 ~/.aws/onelogin/onelogin-aws-assume-role.py --onelogin-password \"\`lpass show --password onelogin.com\`\" --duration 28800"
 alias auth="awscred"
-alias devtest="awscred -p devtest --role devtest-developer"
+alias devtest="awscred -p devtest --role devtest-developer-federated"
 alias prodro="awscred -p prod --role prod-read"
 alias demoro="awscred -p demo --role demo-read"
-alias sandbox1="awscred -p sandbox1 --role sandbox1-developer"
+alias sandbox1="awscred -p sandbox1 --role sandbox1-developer-federated"
 
 alias gdevtest="export AWS_PROFILE=devtest"
-alias gprodro="export AWS_PROFILE=prodro"
-alias gdemoro="export AWS_PROFILE=demoro"
+alias gprod="export AWS_PROFILE=prod"
+alias gdemo="export AWS_PROFILE=demo"
 alias gsandbox1="export AWS_PROFILE=sandbox1"
 
 alias devstatus='pushd ~/dev; for d in `ls`; do pushd $d; git status; popd; done; popd'

@@ -203,8 +203,11 @@
     (are 1)
     (context 2)
     (for-all 1)
+    (log-at 1)
     (match-result 1)
     (middleware 1)
+    (try+ 0)
+    (route-middleware 1)
     (wrap-response 3)
     (p 1)))
 
