@@ -61,7 +61,7 @@ bg_color() {
 }
 # https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
 fg_palette() {
-    for((i=16; i<256; i++)); do
+    for i in `seq 16 255`; do
         printf "%03d" $i | fg_color $i
         # WAY faster but ugly
         # printf "\033[38;5;%dm%03d\033[0m" $i $i
@@ -69,7 +69,7 @@ fg_palette() {
     done
 }
 bg_palette() {
-    for((i=16; i<256; i++)); do
+    for i in `seq 16 255`; do
         printf "%03d" $i | bg_color $i
         # WAY faster but ugly
         # printf "\e[48;5;${i}m%03d" $i;
