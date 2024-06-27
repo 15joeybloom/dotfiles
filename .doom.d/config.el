@@ -3,6 +3,8 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(setenv "PATH" (format "%s:%s" "/Users/joey/go/bin" (getenv "PATH")))
+(add-to-list 'exec-path "/Users/joey/go/bin")
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -25,7 +27,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -177,47 +179,47 @@
          (emacs-lisp-mode . fci-mode)
          (typescript-mode . fci-mode)))
 
-(use-package! smartparens
-  :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-  :config
-  ;; Fix unbalanced parens in insert state
-  ;; https://github.com/hlissner/doom-emacs/issues/478
-  (dolist (brace '("(" "{" "[" "'" "\""))
-    (sp-pair brace nil :unless nil))
-  :hook ((clojure-mode . smartparens-strict-mode)
-         (lisp-mode . smartparens-strict-mode)
-         (emacs-lisp-mode . smartparens-strict-mode)
-         (typescript-mode . turn-off-smartparens-mode)
-         ;; Smartparens gets in the way in text mode. I often want single apostrophes and
-         ;; smartparens assumes I want a matching pair.
-         (text-mode-hook . turn-off-smartparens-mode)))
+;; (use-package! smartparens
+;;   :init (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+;;   :config
+;;   ;; Fix unbalanced parens in insert state
+;;   ;; https://github.com/hlissner/doom-emacs/issues/478
+;;   (dolist (brace '("(" "{" "[" "'" "\""))
+;;     (sp-pair brace nil :unless nil))
+;;   :hook ((clojure-mode . smartparens-strict-mode)
+;;          (lisp-mode . smartparens-strict-mode)
+;;          (emacs-lisp-mode . smartparens-strict-mode)
+;;          (typescript-mode . turn-off-smartparens-mode)
+;;          ;; Smartparens gets in the way in text mode. I often want single apostrophes and
+;;          ;; smartparens assumes I want a matching pair.
+;;          (text-mode-hook . turn-off-smartparens-mode)))
 
-(after! clojure-mode
-  (define-clojure-indent
-    (GET 2)
-    (PATCH 2)
-    (PUT 2)
-    (POST 2)
-    (DELETE 2)
-    (addtest 1)
-    (are 1)
-    (context 2)
-    (for-all 1)
-    (log-at 1)
-    (match-result 1)
-    (middleware 1)
-    (try+ 0)
-    (route-middleware 1)
-    (wrap-response 3)
-    (p 1)))
+;; (after! clojure-mode
+;;   (define-clojure-indent
+;;     (GET 2)
+;;     (PATCH 2)
+;;     (PUT 2)
+;;     (POST 2)
+;;     (DELETE 2)
+;;     (addtest 1)
+;;     (are 1)
+;;     (context 2)
+;;     (for-all 1)
+;;     (log-at 1)
+;;     (match-result 1)
+;;     (middleware 1)
+;;     (try+ 0)
+;;     (route-middleware 1)
+;;     (wrap-response 3)
+;;     (p 1)))
 
 ;; make cider REPL buffer appear to the right instead of at the bottom
-(use-package! cider
-  :config
-  (set-popup-rule! "^\\*cider-repl"
-    :select nil
-    :side 'right
-    :size 80))
+;; (use-package! cider
+;;   :config
+;;   (set-popup-rule! "^\\*cider-repl"
+;;     :select nil
+;;     :side 'right
+;;     :size 80))
 
 ;; paredit
 (map! :leader
@@ -239,8 +241,8 @@
 ;; flycheck-list-errors (SPC c x) is also useful
 (map! :leader
       (:prefix-map ("e" . "error")
-       "n" #'flycheck-next-error
-       "p" #'flycheck-previous-error))
+                   "n" #'flycheck-next-error
+                   "p" #'flycheck-previous-error))
 
 ;; TODO: set up better cljr refactor bindings
 ;; (map! :map clojure-refactor-map
@@ -251,8 +253,8 @@
 
 (map! :leader
       (:prefix-map ("a" . "joeystuff")
-       (:prefix-map ("c" . "comment")
-        "l" #'comment-line)))
+                   (:prefix-map ("c" . "comment")
+                                "l" #'comment-line)))
 
 ;; This changes typescript mode to show eslint errors with flycheck.
 ;; I can't figure out how to get both ts-ls errors and eslint errors to appear
@@ -262,3 +264,34 @@
 ;;   (setq flycheck-checker 'javascript-eslint)
 ;;   )
 ;; (add-hook 'typescript-mode-hook 'typescript-mode-setup)
+
+;; go
+(setq lsp-go-use-placeholders nil)
+
+(setq completion-ignore-case 't)
+
+(after! go-mode
+  (setq gofmt-command "goimports")
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'gofmt nil 'make-it-local))))
+
+;; github copilot
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(defun insert-uuid-v4 ()
+  "Insert a new UUID at point."
+  (interactive)
+  (let ((uuid (string-trim (shell-command-to-string "uuid -v4"))))
+    (insert uuid)))
+
+(map! :leader
+      (:prefix-map ("a" . "joeystuff")
+                   (:prefix-map ("i" . "insert")
+                                "u" #'insert-uuid-v4)))

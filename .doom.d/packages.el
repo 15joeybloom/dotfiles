@@ -53,3 +53,8 @@
 ;; (package! evil-cleverparens)
 (package! evil-smartparens)
 (package! fill-column-indicator)
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+
+;;(package! emacs-snippets :disable t)
+;; (package! yas :disable t)

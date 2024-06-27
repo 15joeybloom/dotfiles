@@ -25,9 +25,23 @@ alias fd=fdfind
 alias ssh-dev-vm='ssh -Y jbloom@localhost -p 2200'
 alias ssh-zzz-vm='ssh -Y joey@localhost -p 2201'
 
-alias psqllocaldb="psql -h localhost -p 7432 -U postgres"
-
 alias frontstart="npm --prefix front start"
 alias npmfront="npm --prefix front"
+alias astart="cd ~/perfalytics/analytics/posthog && bin/start-frontend"
 
 alias c="docker compose"
+
+alias psqllocaldb="psql -h localhost -p 7432 -U postgres"
+alias psqllocalsummary="psql -h localhost -p 7433 -U postgres"
+alias psqllocaldadb="psql -h localhost -p 7435 -U postgres"
+alias s2prod='mysql -u joey_login -h svc-3b4c6844-9695-4ac5-8fba-568a477b414f-dml.aws-oregon-2.svc.singlestore.com -P 3306 --ssl-ca ~/Downloads/singlestore_bundle.cer --ssl-mode=VERIFY_CA --default-auth=mysql_native_password'
+alias s2ingestdb='mysql -u joey_login -h svc-3b4c6844-9695-4ac5-be8a-cc8ae9ba2434-dml.aws-oregon-2.svc.singlestore.com -P 3306 --ssl-ca ~/Downloads/singlestore_bundle.cer --ssl-mode=VERIFY_CA --default-auth=mysql_native_password'
+
+function prune_old_branches() {
+    for k in $(git branch | sed /\*/d); do
+        if [ -z "$(git log -1 --since='1 week ago' -s $k)" ]; then
+            git branch -D $k
+        fi
+    done
+}
+alias prune_old_branches="prune_old_branches"
