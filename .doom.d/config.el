@@ -85,29 +85,29 @@
 ;; Mnemonic: "layout"
 ;; stolen from .emacs.d/modules/config/default/+evil-bindings.el
 (map! :leader (:when (featurep! :ui workspaces)
-               (:prefix-map ("l" . "workspace")
-                :desc "Display tab bar"           "TAB" #'+workspace/display
-                :desc "Switch workspace"          "."   #'+workspace/switch-to
-                :desc "Switch to last workspace"  "`"   #'+workspace/other
-                :desc "New workspace"             "n"   #'+workspace/new
-                :desc "Load workspace from file"  "l"   #'+workspace/load
-                :desc "Save workspace to file"    "s"   #'+workspace/save
-                :desc "Delete session"            "x"   #'+workspace/kill-session
-                :desc "Delete this workspace"     "d"   #'+workspace/delete
-                :desc "Rename workspace"          "r"   #'+workspace/rename
-                :desc "Restore last session"      "R"   #'+workspace/restore-last-session
-                :desc "Next workspace"            "]"   #'+workspace/switch-right
-                :desc "Previous workspace"        "["   #'+workspace/switch-left
-                :desc "Switch to 1st workspace"   "1"   #'+workspace/switch-to-0
-                :desc "Switch to 2nd workspace"   "2"   #'+workspace/switch-to-1
-                :desc "Switch to 3rd workspace"   "3"   #'+workspace/switch-to-2
-                :desc "Switch to 4th workspace"   "4"   #'+workspace/switch-to-3
-                :desc "Switch to 5th workspace"   "5"   #'+workspace/switch-to-4
-                :desc "Switch to 6th workspace"   "6"   #'+workspace/switch-to-5
-                :desc "Switch to 7th workspace"   "7"   #'+workspace/switch-to-6
-                :desc "Switch to 8th workspace"   "8"   #'+workspace/switch-to-7
-                :desc "Switch to 9th workspace"   "9"   #'+workspace/switch-to-8
-                :desc "Switch to final workspace" "0"   #'+workspace/switch-to-final)))
+                (:prefix-map ("l" . "workspace")
+                 :desc "Display tab bar"           "TAB" #'+workspace/display
+                 :desc "Switch workspace"          "."   #'+workspace/switch-to
+                 :desc "Switch to last workspace"  "`"   #'+workspace/other
+                 :desc "New workspace"             "n"   #'+workspace/new
+                 :desc "Load workspace from file"  "l"   #'+workspace/load
+                 :desc "Save workspace to file"    "s"   #'+workspace/save
+                 :desc "Delete session"            "x"   #'+workspace/kill-session
+                 :desc "Delete this workspace"     "d"   #'+workspace/kill
+                 :desc "Rename workspace"          "r"   #'+workspace/rename
+                 :desc "Restore last session"      "R"   #'+workspace/restore-last-session
+                 :desc "Next workspace"            "]"   #'+workspace/switch-right
+                 :desc "Previous workspace"        "["   #'+workspace/switch-left
+                 :desc "Switch to 1st workspace"   "1"   #'+workspace/switch-to-0
+                 :desc "Switch to 2nd workspace"   "2"   #'+workspace/switch-to-1
+                 :desc "Switch to 3rd workspace"   "3"   #'+workspace/switch-to-2
+                 :desc "Switch to 4th workspace"   "4"   #'+workspace/switch-to-3
+                 :desc "Switch to 5th workspace"   "5"   #'+workspace/switch-to-4
+                 :desc "Switch to 6th workspace"   "6"   #'+workspace/switch-to-5
+                 :desc "Switch to 7th workspace"   "7"   #'+workspace/switch-to-6
+                 :desc "Switch to 8th workspace"   "8"   #'+workspace/switch-to-7
+                 :desc "Switch to 9th workspace"   "9"   #'+workspace/switch-to-8
+                 :desc "Switch to final workspace" "0"   #'+workspace/switch-to-final)))
 
 ;; SPC t c to toggle fill column indicator
 (map! :leader "tc" #'fci-mode)
@@ -276,6 +276,16 @@
             (lambda ()
               (add-hook 'after-save-hook 'gofmt nil 'make-it-local))))
 
+(after! (flycheck lsp-mode)
+  (add-hook 'lsp-mode-hook
+            (lambda ()
+              ;; Hack. There's some kind of race condition
+              ;; where this fails if 'lsp isn't loaded as a
+              ;; syntax checker yet.
+              (run-with-timer 5 nil
+                              (lambda ()
+                                (flycheck-add-next-checker 'lsp 'golangci-lint))))))
+
 ;; github copilot
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -284,6 +294,8 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(use-package! claudemacs)
 
 (defun insert-uuid-v4 ()
   "Insert a new UUID at point."
@@ -295,3 +307,18 @@
       (:prefix-map ("a" . "joeystuff")
                    (:prefix-map ("i" . "insert")
                                 "u" #'insert-uuid-v4)))
+
+
+;; (map! :leader
+;;       :desc "Unbind magit-status"
+;;       :prefix "g"
+;;       :n "g" nil)
+
+;; (map! :leader
+;;       :prefix "g"
+;;       :desc "Warn instead of opening magit-status"
+;;       :n "g" #'my/magit-warning)
+
+;; (defun my/magit-warning ()
+;;   (interactive)
+;;   (message "⚠️ Warning: Use gitbutler instead!"))

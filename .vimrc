@@ -109,6 +109,7 @@ if has('gui_running')
 else
     colorscheme ron
 endif
+colorscheme default
 
 "------------------------------------------------------------
 " Must have options {{{1

@@ -19,8 +19,12 @@
    ["#1D252C" "#D95468" "#8BD49C" "#EBBF83" "#5EC4FF" "#E27E8D" "#70E1E8" "#A0B3C5"])
  '(safe-local-variable-values
    '((eval progn
-           (require 'lsp-mode)
-           (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]analytics\\'"))
+      (require 'lsp-mode)
+      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]analytics\\'")
+      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]vendor\\'"))
+     (eval progn
+      (require 'lsp-mode)
+      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]analytics\\'"))
      (eval add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]analytics\\'")
      (rspec-docker-cwd . "/usr/src/app/")))
  '(vc-annotate-background "#1D252C")
@@ -55,7 +59,7 @@
    '(((copilot copilot-no-mode-indent))
      ((copilot copilot-no-mode-indent))
      (go-mode-local-vars-hook)
-     (before-save-hook)) t))
+     (before-save-hook))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -31,6 +31,8 @@ alias astart="cd ~/perfalytics/analytics/posthog && bin/start-frontend"
 
 alias c="docker compose"
 
+alias mfa="~/perfalytics/bin/mfa-global.sh"
+
 alias psqllocaldb="psql -h localhost -p 7432 -U postgres"
 alias psqllocalsummary="psql -h localhost -p 7433 -U postgres"
 alias psqllocaldadb="psql -h localhost -p 7435 -U postgres"

@@ -4,3 +4,6 @@
 **/tags
 **/nosenocover
 **/build-tags
+.dir-locals.el
+.projectile
+.rtx.toml

@@ -55,6 +55,9 @@
 (package! fill-column-indicator)
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! claudemacs
+  :recipe (:host github :repo "cpoile/claudemacs"))
+(package! eat)
 
 ;;(package! emacs-snippets :disable t)
 ;; (package! yas :disable t)
