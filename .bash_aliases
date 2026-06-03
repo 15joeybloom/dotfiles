@@ -47,3 +47,6 @@ function prune_old_branches() {
     done
 }
 alias prune_old_branches="prune_old_branches"
+
+source ~/dotfiles/goto-worktree.sh
+alias gw=goto-worktree
